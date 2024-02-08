@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\033[2;5;4;32mDISCLAMAIRE\033[0m"
+echo -e "\033[1;5;4;34mDISCLAMAIRE\033[0m"
 
 readd="\033[31m"
 reset="\033[0m"
@@ -15,7 +15,7 @@ done
 
 echo
 
-if $(msfconsole -v) && $(git -v); then
+if command -v msfconsole && command -v; then
 	echo "Tools is downloaded"
 else
 	echo "Tools are not downloaded"
