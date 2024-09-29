@@ -28,7 +28,7 @@ echo "       |o_o |"
 echo "       |:_/ |"
 echo "      //   \ \\"
 echo "     (|     | )"
-echo "    /'\_   _/`\\"
+echo "    /'\_   _/'\\"
 echo "    \___)=(___/"
 echo "       TROJAN"
 
